@@ -1,0 +1,99 @@
+{% extends "basic_layout.html" %}
+{% block content %}
+    <script>
+        /*This function identifies the user of the page.
+        *If he is an unregistered visitor the login & signup options will appear
+        but in the case of a user, account & logout options will be shown*/
+
+    </script> 
+    <style>
+        .error {color: #FF0000;}
+    </style>
+
+     
+<div class="container-fluid">
+    
+    <!--image credit: -->     
+    <div class="row">     
+        <div class="col-md-4"></div>
+        <div class="col-md-4 hidden-xs hidden-sm"><a href ="index.php"><img class="img-responsive" src="images/4pints.png"></a></div>
+        <div class="col-md-4"></div>
+    </div> 
+	
+    <!-- register form -->   
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">  
+            <div class="wrapper">
+                <form class="form-horizontal" action="{{ url_for('sign_up') }}" method="post">
+                    {{ form.hidden_tag() }}
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="firstn">{{ form.first_name.label }}</label>
+                        <div class="col-sm-6"> 
+                        {{ form.first_name(class="form-control", placeholder="Enter First Name") }}
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="lastn">{{ form.last_name.label }}</label>
+                        <div class="col-sm-6"> 
+                        {{ form.last_name(class="form-control", placeholder="Enter Last Name") }}
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="email">{{ form.email.label }}</label>
+                        <div class="col-sm-6">
+                        {{ form.email(class="form-control", placeholder="Enter email") }}
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="pwd">{{ form.password.label }}</label>
+                        <div class="col-sm-6"> 
+                        {{ form.password(class="form-control", placeholder="At least 1 capital , 1 number and 8 chars long") }}
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="conpwd">{{ form.confirm_password.label }}</label>
+                        <div class="col-sm-6"> 
+                        {{ form.confirm_password(class="form-control", placeholder="Confirm Password") }}
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="phonenum">{{ form.phone_number.label }}</label>
+                        <div class="col-sm-6"> 
+                        {{ form.phone_number(class="form-control", placeholder="Enter Phone Number") }}
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="radio">Gender:</label>
+                        <div class="col-sm-6">
+                            {{ form.gender(class="radio-inline") }}
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="radio2">Age Group:</label>
+                        <div class="col-sm-6">
+                            {{ form.age_group(class="radio-inline") }}
+                        </div>
+                    <div class="col-sm-2"></div>
+                    <div class="form-group"> 
+                        <div class="col-sm-offset-4 col-sm-6">
+                            <button type="submit" class="btn btn-default">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>  
+<!--end form--> 
+</div>  
+{% endblock %}

@@ -1,0 +1,25 @@
+<!-- Navbar -->
+<!-- Reference: W3Schools http://www.w3schools.com/bootstrap/bootstrap_navbar.asp-->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                   
+        </button>
+        <a class="navbar-brand" href="index">CADOPTION
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+            <li><a href="find_your_meow">Find your meow</a></li>
+            <li><a href="rescued_meows">Rescued meows</a></li>
+            <li><a href="about_meows">About meows</a></li>
+            <li><a href="about_us">About us</a></li>
+            <li><a href="admin_page">*Administrator's Page*</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="sign_up"><span class="glyphicon glyphicon-user"></span><?php if(isset($_SESSION['accountType'])) {echo " Account";} else {echo " SignUp";}?></a></li>
+            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span><?php if(isset($_SESSION['accountType'])) {echo " Logout";} else {echo " Login";}?></a></li>
+        </ul>
+    </div>
+  </div>
+</nav>
