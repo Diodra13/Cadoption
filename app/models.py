@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login_manager
@@ -13,8 +14,10 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(60), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     gender = db.Column(db.String(10))
-    birthdate = db.Column(db.Date)
+    phone_number = db.Column(db.String(20))
+    birth_date = db.Column(db.Date)
     is_admin = db.Column(db.Boolean, default=False)
+    posts =  db.relationship('Post', backref='user', lazy='dynamic')
 
     @property
     def password(self):
@@ -42,9 +45,10 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
-    cat_image = db.Column(BLOB)
+    # cat_image = db.Column(BLOB)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    users = db.relationship('User', backref='post', lazy='dynamic')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    posts_tagged_posts = db.relationship('Tagged_post', backref='post', lazy='dynamic')
 
     def __repr__(self):
         return '<Post: {}>'.format(self.name)
@@ -55,6 +59,7 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(200))
+    tags_tagged_posts = db.relationship('Tagged_post', backref='tag', lazy='dynamic')
 
     def __repr__(self):
         return '<Tag: {}>'.format(self.name)
@@ -64,8 +69,8 @@ class Tagged_post(db.Model):
     __tablename__ = 'tagged_posts'
 
     id = db.Column(db.Integer, primary_key=True)
-    tag_id = db.relationship('Tag', backref='tagged_post', lazy='dynamic')
-    post_id = db.relationship('Post', backref='tagged_post', lazy='dynamic')
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
     def __repr__(self):
         return '<Tagged_post: {}>'.format(self.name)

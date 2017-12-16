@@ -12,10 +12,6 @@ def create_app():
     app.config.from_object('config')
     db.init_app(app)
 
-    @app.route('/')
-    def hello_world():
-    	return 'hello world'
-
     login_manager.init_app(app)
     login_manager.login_message = "You must be logged in to perform that action."
     login_manager.login_view = "auth.login"

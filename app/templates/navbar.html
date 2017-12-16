@@ -6,18 +6,26 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                                    
         </button>
-        <a class="navbar-brand" href="index">CADOPTION</a>
+        <a class="navbar-brand" href="{{ url_for('home.index') }}">CADOPTION</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-            <li><a href="find_your_meow">Find your meow</a></li>
-            <li><a href="cat_memes">Cat memes</a></li>
-            <li><a href="about_us">About us</a></li>
-            <li><a href="admin_page">*Administrator's Page*</a></li>
+            <li><a href="{{ url_for('home.find_your_meow') }}">Find your meow</a></li>
+            <li><a href="{{ url_for('home.cat_funnies') }}">Cat funnies</a></li>
+            <li><a href="{{ url_for('home.about_us') }}">About us</a></li>
+            <li><a href="{{ url_for('home.contact_us') }}">Contact us</a></li>
+            {% if current_user.is_admin %}
+                <li><a href="{{ url_for('admin.admin_page') }}">*Administrator's Page*</a></li>
+            {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="sign_up"><span class="glyphicon glyphicon-user"></span><?php if(isset($_SESSION['accountType'])) {echo " Account";} else {echo " SignUp";}?></a></li>
-            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span><?php if(isset($_SESSION['accountType'])) {echo " Logout";} else {echo " Login";}?></a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('home.account') }}"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li><a href="{{ url_for('auth.logout') }}"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            {% else %}
+                <li><a href="{{ url_for('auth.sign_up') }}"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li><a href="{{ url_for('auth.login') }}"><span class="glyphicon glyphicon-log-in"></span></a></li>
+            {% endif %}
         </ul>
     </div>
   </div>
