@@ -6,6 +6,11 @@ from .forms import RegisterForm, LoginForm
 from .. import db
 from ..models import User
 
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field - %s" % (getattr(form, field).label.text, error), 'error')
+
 @auth.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
 	register_form = RegisterForm()
@@ -22,8 +27,9 @@ def sign_up():
 		db.session.add(user)
 		db.session.commit()
 		flash('You have successfully registered! You may now login.')
-
 		return redirect(url_for('auth.login'))
+	else:
+		flash_errors(register_form)
 
 	return render_template("auth/sign_up.html", title='sign_up', register_form=register_form)
 
@@ -37,7 +43,7 @@ def login():
 			login_user(user)
 			return redirect(url_for('home.index'))
 	else:
-		flash('Invalid email or password.')
+		flash_errors(login_form)
 
 	return render_template("auth/login.html", title='login', login_form=login_form)
 

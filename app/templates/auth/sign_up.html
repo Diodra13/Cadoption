@@ -10,7 +10,7 @@
     <!--image credit: -->     
     <div class="row">     
         <div class="col-md-4"></div>
-        <div class="col-md-4 hidden-xs hidden-sm"><a href ="{{ url_for('home.index') }}"><img class="img-responsive" src="static/images/c4.jpg"></a></div>
+        <div class="col-md-4 hidden-xs hidden-sm"><a href ="{{ url_for('home.index') }}"><img class="img-responsive" src="static/images/c7.jpg"></a></div>
         <div class="col-md-4"></div>
     </div> 
 	
@@ -85,10 +85,22 @@
                         </div>
                     </div>
                 </form>
+                {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                    {% if errors %}
+                        {% for message in errors %}
+                            <div class="alert alert-danger flash">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
             </div>
         </div>
         <div class="col-md-3"></div>
     </div>  
     <!--end form--> 
+
+
+
 </div>  
 {% endblock %}
